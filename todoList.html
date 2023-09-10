@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TodoList</title>
+  <link href="css/reset.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <script src="https://kit.fontawesome.com/db0e422e76.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
+</head>
+
+
+<body>
+  <div id="wrap">
+    <h1 id="title">To Do List</h1>
+    <div id="inputBox">
+      <form>
+        <input type="text" id="todoInput" placeholder="Add New Task" value="">
+        <button id="addBtn" type="button"><i class="fa-solid fa-plus"></i></button>
+      </form>
+    </div>
+    <div id="todoBox">
+      <ul id="todoList">
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    todoInput.focus();
+
+    function addTodo() {
+      let todoText = todoInput
+      let todoList = document.getElementById("todoList")
+
+      if (todoText.value == "") {
+        alert("리스트를 입력해주세요.")
+      } else {
+        // 생성하기
+        let list = document.createElement("li");
+        let todoListBox = document.createElement("div");
+        let check = document.createElement("i");
+        let text = document.createElement("span");
+        let del = document.createElement("i");
+
+        // class 부여하기 
+        todoListBox.className = "listBox";
+        check.className = "fa-regular fa-circle nonCheck";
+        text.className = "text";
+        del.className = "fa-solid fa-trash-can del";
+
+        // document에 추가하기
+        todoList.appendChild(list);
+        list.appendChild(todoListBox);
+        todoListBox.appendChild(check);
+        text.innerHTML = todoText.value;    //todoInput의 value를 span에서 출력
+        todoListBox.appendChild(text);
+        todoListBox.appendChild(del);
+
+        // 추가 후 input에 쓴 내용 초기화
+        todoInput.value = "";
+      }
+    }
+
+
+    addBtn.addEventListener("click", addTodo) // add버튼 클릭하면 추가
+    todoInput.addEventListener("keypress", function(e){  //input 창에서 엔터 누르면 추가 
+      if(e.keyCode === 13){
+        e.preventDefault();  //form 태그에 input 태그가 하나면 자동으로 submit. 이를 방지 하기 위해 추가
+        addTodo();
+      }
+    });
+  </script>
+</body>
+
+</html>
