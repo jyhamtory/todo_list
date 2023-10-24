@@ -49,7 +49,7 @@ window.onload = function () {
   
   // 버튼 이벤트 추가 
   check.addEventListener("click", checkTodo); // check 클릭하면 동작할 이벤트
-  text.addEventListener("dblclick", checkTodoClick); // text 더블클릭하면 동작할 이벤트 
+  text.addEventListener("dblclick", checkTodo); // text 더블클릭하면 동작할 이벤트 
   del.addEventListener("click", delTodo); // del 클릭하면 동작할 이벤트
 
 
@@ -57,22 +57,6 @@ window.onload = function () {
   function checkTodo(e) {
     let check = e.target;
     let text = e.target.nextSibling;
-
-    if (check.className.indexOf("nonchecked") > -1) { // 체크가 안 된 상태에서 클릭하면 체크 + 텍스트 스타일
-      check.className = "fa-solid fa-circle-check checked";
-      text.style.textDecoration = "line-through";
-      text.style.color = "#bbba";
-    } else {                                         //  아니면 체크 해제 + 텍스트 스타일
-      check.className = "fa-regular fa-circle nonchecked";
-      text.style.textDecoration = "none";
-      text.style.color = "#333"
-    }
-  }
-
-  // text 더블클릭하면 동작할 이벤트 
-  function checkTodoClick(e) {
-    let text = e.target;
-    let check = e.target.previousSibling;
 
     if (check.className.indexOf("nonchecked") > -1) { // 체크가 안 된 상태에서 클릭하면 체크 + 텍스트 스타일
       check.className = "fa-solid fa-circle-check checked";
