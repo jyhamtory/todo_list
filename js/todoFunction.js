@@ -1,4 +1,3 @@
-
 window.onload = function () {
   todoInput.focus();  // 처음 들어올 때 input에 focus
 
@@ -33,24 +32,13 @@ window.onload = function () {
 
       // 추가 후 input에 쓴 내용 초기화
       todoInput.value = "";
+
+      // 버튼 이벤트 추가 
+      check.addEventListener("click", checkTodo); // check 클릭하면 동작할 이벤트
+      text.addEventListener("dblclick", checkTodoClick); // text 더블클릭하면 동작할 이벤트 
+      del.addEventListener("click", delTodo); // del 클릭하면 동작할 이벤트
     }
   }
-  
-  // add버튼 클릭하면 동작할 이벤트
-  addBtn.addEventListener("click", addTodo)
-
-  //input 창에서 엔터 누르면 동작할 이벤트
-  todoInput.addEventListener("keypress", function (e) {
-    if (e.keyCode === 13) {
-      e.preventDefault();  //form 태그에 input 태그가 하나면 자동으로 submit. 이를 방지 하기 위해 추가
-      addTodo();
-    }
-  });
-  
-  // 버튼 이벤트 추가 
-  check.addEventListener("click", checkTodo); // check 클릭하면 동작할 이벤트
-  text.addEventListener("dblclick", checkTodo); // text 더블클릭하면 동작할 이벤트 
-  del.addEventListener("click", delTodo); // del 클릭하면 동작할 이벤트
 
 
   // check 클릭하면 동작할 이벤트
@@ -69,9 +57,36 @@ window.onload = function () {
     }
   }
 
+  // text 더블클릭하면 동작할 이벤트 
+  function checkTodoClick(e) {
+    let text = e.target;
+    let check = e.target.previousSibling;
+
+    if (check.className.indexOf("nonchecked") > -1) { // 체크가 안 된 상태에서 클릭하면 체크 + 텍스트 스타일
+      check.className = "fa-solid fa-circle-check checked";
+      text.style.textDecoration = "line-through";
+      text.style.color = "#bbba";
+    } else {                                         //  아니면 체크 해제 + 텍스트 스타일
+      check.className = "fa-regular fa-circle nonchecked";
+      text.style.textDecoration = "none";
+      text.style.color = "#333"
+    }
+  }
+
   // del 클릭하면 동작할 이벤트
   function delTodo(e) {
     let list = e.target.parentElement.parentElement; //del의 부모요소(div)의 부모요소(li)
     list.remove();
   }
+
+  // add버튼 클릭하면 동작할 이벤트
+  addBtn.addEventListener("click", addTodo)
+
+  //input 창에서 엔터 누르면 동작할 이벤트
+  todoInput.addEventListener("keypress", function (e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();  //form 태그에 input 태그가 하나면 자동으로 submit. 이를 방지 하기 위해 추가
+      addTodo();
+    }
+  });
 }
